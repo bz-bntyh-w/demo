@@ -16,15 +16,21 @@ var Main = (function (_super) {
         return _this;
     }
     Main.prototype.onload = function () {
-        var _shape = new egret.Shape;
-        _shape.graphics.beginFill(0xff0000);
-        _shape.graphics.drawRect(0, 0, 100, 100);
-        _shape.graphics.endFill();
-        _shape.x = 200;
-        _shape.y = 200;
-        var targetPoint = _shape.localToGlobal(0, 0);
+        this._shape.graphics.beginFill(0xff0000);
+        this._shape.graphics.drawRect(0, 0, 100, 100);
+        this._shape.graphics.endFill();
+        this._shape.x = 200;
+        this._shape.y = 200;
+        var targetPoint = this._shape.localToGlobal(0, 0);
         console.log(targetPoint);
-        this.addChild(_shape);
+        this.addChild(this._shape);
+        this._shape.touchEnabled = true;
+        this._shape.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startMove, this);
+    };
+    Main.prototype.startMove = function (e) {
+        console.log(11111);
+        this.offsetX = e.stageX - this._shape.x;
+        this.offsetY = e.stageY - this._shape.y;
     };
     return Main;
 }(egret.DisplayObjectContainer));
